@@ -11,7 +11,7 @@
   wsl.enable = true;
   wsl.defaultUser = "nixos";
 
-  users.users.nixos = {
+  users.users.shoe = {
 	  isNormalUser = true;
 	  extraGroups = [ "networkmanager" "wheel" ];
 	  packages = with pkgs; [
