@@ -2,25 +2,23 @@
 
 {
   imports = [
-    # include NixOS-WSL modules
-    <nixos-wsl/modules>
     ./server.nix
-    ./pkgs.nix
+    ./hardware-configuration.nix
   ];
 
-  wsl.enable = true;
-  wsl.defaultUser = "nixos";
 
-  users.users.shoe = {
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  users.users.nixos = {
 	  isNormalUser = true;
 	  extraGroups = [ "networkmanager" "wheel" ];
 	  packages = with pkgs; [
 		  neovim
 		  git
+		  nmap
 	  ];
   };
-
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
