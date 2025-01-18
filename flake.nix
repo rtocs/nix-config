@@ -22,7 +22,7 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
 	modules = [
-		./configuration.nix
+		./wsl/configuration.nix
 	];
       };
     };

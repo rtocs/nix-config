@@ -1,6 +1,4 @@
-Build
-before flakes
-sudo nixos-rebuild switch -I nixos-config=/home/nixos/nix-config/configuration.nix
+build 
 
 flakes
 nixos-rebuild  switch --flake /home/nixos/nix-config/configuration.nix
