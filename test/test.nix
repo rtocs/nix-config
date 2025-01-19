@@ -1,7 +1,7 @@
 {...} : 
 {
 	services.nginx = {
-	 enable = true;
+	 enable = false;
 	 config = ''
 	 worker_processes 2;
 	 events {
