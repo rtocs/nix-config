@@ -6,7 +6,6 @@
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   users.users.nixos = {
 	  isNormalUser = true;
 	  extraGroups = [ "networkmanager" "wheel" ];

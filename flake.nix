@@ -15,17 +15,19 @@
     disko,
     nixos-wsl,
     ...
-  } @ inputs: let
-    inherit (self) outputs;
-  in {
-    nixosConfigurations.wsl = {
-      nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-	modules = [
-		./wsl/configuration.nix
-	];
-      };
+  } : {
+    nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-wsl.nixosModules.default
+          {
+            system.stateVersion = "24.05";
+            wsl.enable = true;
+          }
+	  ./wsl/configuration.nix
+        ];
     };
+
       nixosConfigurations.digitalocean = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
