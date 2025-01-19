@@ -1,7 +1,7 @@
 {...} : 
 {
 	services.nginx = {
-	 enable = false;
+	 enable = true;
 	 config = ''
 	 worker_processes 2;
 	 events {
@@ -18,4 +18,5 @@
 	 }
 	 '';
 	};
+	networking.firewall.allowedTCPPorts = [ 8080 ];
 }
