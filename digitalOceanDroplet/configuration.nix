@@ -26,6 +26,7 @@
 		  git
 		  nmap
 	  ];
+  	  openssh.authorizedKeys.keys  = [ ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIz+Me+uWyR8naM4TBp+pLkawigVQkt6KxG+HWrVc0N''];
   };
 
   environment.systemPackages = map lib.lowPrio [
@@ -34,15 +35,11 @@
     pkgs.nvim
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   users.users.root.openssh.authorizedKeys.keys = [
     ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIz+Me+uWyR8naM4TBp+pLkawigVQkt6KxG+HWrVc0N''
   ];
 
-  users.users.nixos.openssh.authorizedKeys.keys = [
-    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIz+Me+uWyR8naM4TBp+pLkawigVQkt6KxG+HWrVc0N''
-  ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   system.stateVersion = "24.05";
 }
