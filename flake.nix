@@ -34,11 +34,11 @@
           {
             # do not use DHCP, as DigitalOcean provisions IPs using cloud-init
             networking.useDHCP = nixpkgs.lib.mkForce false;
-
             services.cloud-init = {
               enable = true;
               network.enable = true;
             };
+
           }
 	  ./digitalOceanDroplet/configuration.nix
 	  ./test/test.nix
