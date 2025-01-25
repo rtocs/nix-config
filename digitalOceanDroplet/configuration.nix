@@ -21,19 +21,10 @@
   environment.systemPackages = map lib.lowPrio [
     pkgs.curl
     pkgs.gitMinimal
+    pkgs.nvim
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  users.users.nixos = {
-	  isNormalUser = true;
-	  extraGroups = [ "networkmanager" "wheel" ];
-	  packages = with pkgs; [
-		  neovim
-		  git
-		  nmap
-	  ];
-  };
 
   users.users.root.openssh.authorizedKeys.keys = [
     ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIz+Me+uWyR8naM4TBp+pLkawigVQkt6KxG+HWrVc0N''
