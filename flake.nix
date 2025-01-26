@@ -23,6 +23,7 @@
             wsl.enable = true;
           }
 	  ./wsl/configuration.nix
+	  ./users/default.nix
         ];
     };
 
@@ -38,10 +39,9 @@
               enable = true;
               network.enable = true;
             };
-
           }
 	  ./digitalOceanDroplet/configuration.nix
-	  ./test/test.nix
+	  ./users/default.nix
         ];
       };
   };

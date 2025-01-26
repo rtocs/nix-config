@@ -4,6 +4,12 @@
 {
 	users.users.nixos = {
 		isNormalUser  = true;
+		packages = with pkgs; [
+			neovim
+				git
+				nmap
+		];
+
 		home  = "/home/nixos";
 		description  = "nix";
 		extraGroups  = [ "wheel" "networkmanager" ];
