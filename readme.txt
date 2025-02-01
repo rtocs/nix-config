@@ -1,7 +1,7 @@
 build 
 
-local
-nixos-rebuild  switch --flake .# 
+nixos-rebuild  switch --flake /home/nixos/nix-config#wsl
+nixos-rebuild  switch --flake /home/nixos/nix-config#digitalocean
 
 from git
 nixos-rebuild  switch --flake github:rtocs/nix-config#digitalocean

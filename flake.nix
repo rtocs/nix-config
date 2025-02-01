@@ -24,6 +24,7 @@
           }
 	  ./wsl/configuration.nix
 	  ./users/default.nix
+	  ./services/game.nix
         ];
     };
 

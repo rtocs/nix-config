@@ -1,6 +1,4 @@
-{
-	...
-}:
+{ pkgs, ...}:
 {
 	users.users.nixos = {
 		isNormalUser  = true;
