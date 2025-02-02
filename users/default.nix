@@ -4,8 +4,9 @@
 		isNormalUser  = true;
 		packages = with pkgs; [
 			neovim
-				git
-				nmap
+			git
+			nmap
+			go
 		];
 
 		home  = "/home/nixos";

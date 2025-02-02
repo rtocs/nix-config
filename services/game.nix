@@ -1,21 +1,16 @@
 {...} : 
 {
 	systemd.services.game = {
-		enable = true;
+		enable = false;
 		description = "game-server";
-		
 		serviceConfig = {
+
 			Type = "forking";
-			ExecStart = "usr/bin/game-server/main";
-			ExecStop = "pkill main";
+			ExecStart = "/var/test/test";
 			Restart = "on-failure";	
 		};
 
 		wantedBy = [ "multi-user.target" ];
 		after = [ "network-up.target" ];
-		script = "";
-
-		environment = {
-		};
 	};
 }
