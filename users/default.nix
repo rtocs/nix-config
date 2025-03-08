@@ -6,7 +6,6 @@
 			neovim
 			git
 			nmap
-			go
 		];
 
 		home  = "/home/nixos";
