@@ -23,8 +23,7 @@
             wsl.enable = true;
           }
 	  ./wsl/configuration.nix
-	  ./users/default.nix
-	  ./services/game.nix
+	  ./users/dev.nix
         ];
     };
 
