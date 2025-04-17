@@ -23,7 +23,7 @@
             wsl.enable = true;
           }
 	  ./wsl/configuration.nix
-	  ./users/dev.nix
+	  ./users/default.nix
         ];
     };
 

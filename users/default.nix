@@ -2,10 +2,12 @@
 {
 	users.users.nixos = {
 		isNormalUser  = true;
+		# we only add executables
 		packages = with pkgs; [
 			neovim
 			git
 			nmap
+			curl
 		];
 
 		home  = "/home/nixos";
