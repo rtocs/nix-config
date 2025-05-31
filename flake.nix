@@ -1,5 +1,5 @@
 {
-  description = "rtocs config";
+  description = "config";
   inputs = {
 	  nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 	  disko.url = "github:nix-community/disko";
@@ -41,7 +41,9 @@
             };
           }
 	  ./digitalOceanDroplet/configuration.nix
+          ./users/root.nix
 	  ./users/default.nix
+	  ./users/server.nix
         ];
       };
   };

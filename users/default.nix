@@ -4,16 +4,15 @@
 		isNormalUser  = true;
 		packages = with pkgs; [
 			git
-			nmap
-			curl
-			gcc
-			gnumake
-			ripgrep
-			fd
-			unzip
-			neovim
+				nmap
+				curl
+				gcc
+				gnumake
+				ripgrep
+				fd
+				unzip
+				(import ./nvim/dev.nix { inherit pkgs; })
 		];
-
 		home  = "/home/nixos";
 		description  = "nix";
 		extraGroups  = [ "wheel" "networkmanager" ];
