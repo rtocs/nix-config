@@ -3,7 +3,7 @@
 	users.users.nixos = {
 		isNormalUser  = true;
 		packages = with pkgs; [
-			git
+				git
 				nmap
 				curl
 				gcc
@@ -11,6 +11,7 @@
 				ripgrep
 				fd
 				unzip
+				lua-language-server
 				(import ./nvim/dev.nix { inherit pkgs; })
 		];
 		home  = "/home/nixos";

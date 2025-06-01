@@ -3,13 +3,11 @@ pkgs.neovim.override {
 	configure = {
 		packages.myPlugins.start = with pkgs.vimPlugins; [
 			nvim-lspconfig
-			plenary-nvim
+			telescope-nvim
 		];
 
 		customRC = ''
-			lua << EOF
-			${builtins.readFile ./init.lua}
-			EOF
-			'';
+			luafile ${./init.lua}
+		'';
 	};
 }
