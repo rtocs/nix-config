@@ -10,7 +10,6 @@ vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
 
--- idk
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
@@ -71,19 +70,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- vim.keymap.set("n", "dd", '"_dd', { desc = "Delete without adding to clipboard" })
-
--- plugins 
-require("lspconfig").lua_ls.setup {
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-				checkThirdParty = false,
-			},
-		},
-	}
-}
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = 'marks' })
+vim.keymap.set('n', '<leader>sr', builtin.registers, { desc = 'Telescope help tags' })
