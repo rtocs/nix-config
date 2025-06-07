@@ -4,7 +4,12 @@ pkgs.neovim.override {
 		packages.myPlugins.start = with pkgs.vimPlugins; [
 			nvim-lspconfig
 			telescope-nvim
-			blink-cmp
+			oil-nvim
+
+
+			nvim-treesitter
+			nvim-treesitter-parsers.nix
+			nvim-treesitter-parsers.lua
 	];
 
 		customRC = ''
