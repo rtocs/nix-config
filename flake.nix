@@ -23,8 +23,8 @@
             wsl.enable = true;
           }
 	  ./wsl/configuration.nix
-	  ./users/default.nix
-        ];
+	  ./users/server.nix
+        ]
     };
 
       nixosConfigurations.digitalocean = nixpkgs.lib.nixosSystem {
