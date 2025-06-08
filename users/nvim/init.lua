@@ -237,3 +237,4 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require("oil").setup()
+vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>', { desc = 'Telescope help tags' })
