@@ -21,9 +21,9 @@
           {
             system.stateVersion = "24.05";
             wsl.enable = true;
-          }
+          };
 	  ./wsl/configuration.nix
-	  ./users/server.nix
+	  ./users/default.nix
         ]
     };
 
@@ -42,7 +42,7 @@
           }
 	  ./digitalOceanDroplet/configuration.nix
           ./users/root.nix
-	  ./users/default.nix
+	  ./users/server.nix
         ];
       };
   };
