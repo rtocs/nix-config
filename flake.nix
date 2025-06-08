@@ -21,10 +21,10 @@
           {
             system.stateVersion = "24.05";
             wsl.enable = true;
-          };
+          }
 	  ./wsl/configuration.nix
 	  ./users/default.nix
-        ]
+        ];
     };
 
       nixosConfigurations.digitalocean = nixpkgs.lib.nixosSystem {
