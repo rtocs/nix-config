@@ -43,7 +43,6 @@
 	  ./digitalOceanDroplet/configuration.nix
           ./users/root.nix
 	  ./users/default.nix
-	  ./users/server.nix
         ];
       };
   };
