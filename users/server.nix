@@ -2,10 +2,6 @@
 {
 	users.users.nixos = {
 		isNormalUser  = true;
-		packages = with pkgs; [
-				nmap
-				neovim	
-		];
 		home  = "/home/nixos";
 		description  = "nix";
 		extraGroups  = [ "wheel" "networkmanager" ];
