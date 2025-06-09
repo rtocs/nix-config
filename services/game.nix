@@ -8,12 +8,21 @@
 
     serviceConfig = {
       ExecStart = "/home/nixos/test/main";
+      WorkingDirectory = "/home/nixos/test/"; 
       Restart = "always";
+      User = "nixos";
+
+      # Log output settings
+      StandardOutput = "append:/var/log/my-web-service/output.log";
+      StandardError = "append:/var/log/my-web-service/error.log";
     };
 
-    # Optional: open the port via firewall
-    wantedBy = [ "multi-user.target" ];
+    preStart = ''
+      mkdir -p /var/log/my-web-service
+      chown nixos:nixos /var/log/my-web-service
+    '';
   };
+
   networking.firewall.allowedTCPPorts = [ 8090 ];
 }
 

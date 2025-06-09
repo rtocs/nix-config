@@ -43,6 +43,7 @@
 	  ./digitalOceanDroplet/configuration.nix
           ./users/root.nix
 	  ./users/server.nix
+	  ./services/game.nix
         ];
       };
   };
