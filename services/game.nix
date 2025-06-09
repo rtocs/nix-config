@@ -11,16 +11,7 @@
       WorkingDirectory = "/home/nixos/test/"; 
       Restart = "always";
       User = "nixos";
-
-      # Log output settings
-      StandardOutput = "append:/var/log/my-web-service/output.log";
-      StandardError = "append:/var/log/my-web-service/error.log";
     };
-
-    preStart = ''
-      mkdir -p /var/log/my-web-service
-      chown nixos:nixos /var/log/my-web-service
-    '';
   };
 
   networking.firewall.allowedTCPPorts = [ 8090 ];
