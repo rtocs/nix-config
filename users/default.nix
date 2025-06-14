@@ -4,8 +4,6 @@
 		isNormalUser  = true;
 		packages = with pkgs; [
 				git
-				nmap
-				curl
 				gcc
 				gnumake
 				ripgrep
