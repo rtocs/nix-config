@@ -10,6 +10,7 @@ pkgs.neovim.override {
 			nvim-treesitter
 			nvim-treesitter-parsers.nix
 			nvim-treesitter-parsers.lua
+			nvim-treesitter-parsers.zig
 	];
 
 		customRC = ''
