@@ -55,8 +55,8 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-vim.keymap.set("n", "<C-m>", "<C-w>-", { desc = "Move focus to the upper window" })
-vim.keymap.set("n", "<C-p>", "<C-w>+", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<C-m>", "<C-w>-", { desc = "smaller" })
+vim.keymap.set("n", "<C-p>", "<C-w>+", { desc = "bigger" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
@@ -75,11 +75,7 @@ vim.keymap.set('n', '<leader>sr', builtin.registers, { desc = 'Telescope help ta
 vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
-          --
-          -- In this case, we create a function that lets us more easily define mappings specific
-          -- for LSP related items. It sets the mode, buffer and description for us each time.
+
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -242,6 +238,5 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require("oil").setup()
-vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>', { desc = 'Telescope help tags' })
-
-
+vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>', { desc = 'oil' })
+vim.keymap.set('n', '<leader>r', '<cmd>Rest run<CR>', { desc = 'run rest' })
