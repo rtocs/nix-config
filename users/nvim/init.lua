@@ -191,6 +191,7 @@ vim.diagnostic.config {
 	},
 }
 
+-- do we even use this?
 vim.lsp.config('lua_ls', {
    on_init = function(client)
      if client.workspace_folders then
@@ -226,15 +227,21 @@ vim.lsp.config('lua_ls', {
 })
 
 vim.lsp.enable('lua_ls')
-
-
 require'nvim-treesitter.configs'.setup {
   highlight = {
-    ensure_installed = { "lua", "zig" },
     enable = true,
+    disable = function(_, buf)
+        local max_filesize = 100 * 1024 
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
     additional_vim_regex_highlighting = false,
   },
 }
 
 require("oil").setup()
 vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>', { desc = 'Telescope help tags' })
+
+
