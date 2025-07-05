@@ -10,8 +10,9 @@
 				fd
 				unzip
 				lua-language-server
-				(import ./nvim/dev.nix { inherit pkgs; })
+				(import ./pkgs-overrides/nvim/dev.nix { inherit pkgs; })
 		];
+
 		home  = "/home/nixos";
 		description  = "nix";
 		extraGroups  = [ "wheel" "networkmanager" ];
