@@ -17,12 +17,12 @@
     efiInstallAsRemovable = true;
   };
 
-
   environment.systemPackages = map lib.lowPrio [
-    pkgs.curl
-    pkgs.gitMinimal
+    pkgs.git
     pkgs.neovim
   ];
+
+  environment.variables.EDITOR = "nvim";
 
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [
