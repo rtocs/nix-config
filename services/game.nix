@@ -1,4 +1,4 @@
-{...} : 
+{...} :
 {
 	systemd.services.test-server = {
 		description = "test";

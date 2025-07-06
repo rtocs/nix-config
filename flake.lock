@@ -92,7 +92,23 @@
       "inputs": {
         "disko": "disko",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "rtocs-secrets": "rtocs-secrets"
+      }
+    },
+    "rtocs-secrets": {
+      "locked": {
+        "lastModified": 1751806463,
+        "narHash": "sha256-9K+X7Ehile5G1tY6oL0FVpWyIgqLMLk5Ps1l4deoDLI=",
+        "ref": "refs/heads/main",
+        "rev": "84ddec76ffd352f8e5d88003d2b1f63e8bce9d3b",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/rtocs/nix-config-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/rtocs/nix-config-secrets.git"
       }
     }
   },

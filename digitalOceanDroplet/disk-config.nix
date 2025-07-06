@@ -1,4 +1,5 @@
 # Example to create a bios compatible gpt partition
+# TODO do we need this?
 { lib, ... }:
 {
   disko.devices = {

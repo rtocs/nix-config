@@ -5,7 +5,8 @@
 		disko.url = "github:nix-community/disko";
 		disko.inputs.nixpkgs.follows = "nixpkgs";
 		nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-		# secrets.url = "git+ssh://git@github.com/you/secrets.git";
+
+		rtocs-secrets.url = "git+ssh://git@github.com/rtocs/nix-config-secrets.git"; # should only be needed for servers
 	};
 
 	outputs = {
@@ -15,7 +16,7 @@
 		nixos-wsl,
 		...
 	} : {
-		nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+		nixosConfigurations.wsl-dev = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 			modules = [
 			nixos-wsl.nixosModules.default
@@ -28,7 +29,7 @@
 			];
 		};
 
-		nixosConfigurations.digitalocean = nixpkgs.lib.nixosSystem {
+		nixosConfigurations.digitalocean-server = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 			modules = [
 			disko.nixosModules.disko
