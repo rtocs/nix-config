@@ -14,6 +14,7 @@
 		nixpkgs,
 		disko,
 		nixos-wsl,
+		rtocs-secrets
 		...
 	} : {
 		nixosConfigurations.wsl-dev = nixpkgs.lib.nixosSystem {
