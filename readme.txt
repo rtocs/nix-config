@@ -10,3 +10,4 @@ nixos-rebuild  switch --flake github:rtocs/nix-config#wsl-dev
 clean
 sudo nix-collect-garbage --delete-older-than 1d
 
+
