@@ -13,6 +13,7 @@ pkgs.neovim.override {
 			nvim-treesitter-parsers.lua
 			nvim-treesitter-parsers.zig
 			nvim-treesitter-parsers.go
+			nvim-treesitter-parsers.html
 	];
 
 		customRC = ''

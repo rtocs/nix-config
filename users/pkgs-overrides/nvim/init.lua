@@ -240,4 +240,6 @@ require'nvim-treesitter.configs'.setup {
 
 require("oil").setup()
 vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>', { desc = 'oil' })
+
+
 vim.keymap.set('n', '<leader>r', '<cmd>Rest run<CR>', { desc = 'run rest' })
