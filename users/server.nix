@@ -1,4 +1,4 @@
-{ pkgs, rtocs-secrets, ...}:
+{ pkgs, secrets, ...}:
 {
 	users.users.nixos = {
 		isNormalUser  = true;
@@ -11,7 +11,7 @@
 		description  = "server default user";
 		extraGroups  = [ "wheel" "networkmanager" ];
 		openssh.authorizedKeys.keys  = [
-			rtocs-secrets.wslKeyMain
+			secrets.wslKeyMain
 		];
 	};
 }

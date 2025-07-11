@@ -32,7 +32,7 @@
 		nixosConfigurations.digitalocean-server = nixpkgs.lib.nixosSystem {
 			system = "x86_64-linux";
 			specialArgs = {
-			  inherit secrets;
+			   secrets = secrets.secrets;
 			};
 			modules = [
 				disko.nixosModules.disko

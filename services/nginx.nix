@@ -20,7 +20,7 @@
 
 	security.acme = {
 		AcceptTerms = true;
-		email = rotcs-secrets.main-email; 
+		email = secrets.mainEmail:
 	};
 
 	networking.firewall.allowedTCPPorts = [ 80 443 ];
