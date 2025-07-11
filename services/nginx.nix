@@ -1,4 +1,4 @@
-{ rtocs-secrets, ... }:
+{ secrets, ... }:
 {
 	services.nginx = {
 		enable = true;

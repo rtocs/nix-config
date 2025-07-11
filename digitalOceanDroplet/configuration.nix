@@ -2,7 +2,7 @@
 		modulesPath,
 		lib,
 		pkgs,
-		rtocs-secrets,
+		secrets,
 		...
 }:
 {
