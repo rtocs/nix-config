@@ -9,7 +9,11 @@
 				ripgrep
 				fd
 				unzip
+				
+				# lsps
 				lua-language-server
+				zls
+
 				(import ./pkgs-overrides/nvim/dev.nix { inherit pkgs; })
 		];
 

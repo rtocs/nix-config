@@ -223,7 +223,10 @@ vim.lsp.config('lua_ls', {
    }
 })
 
+
 vim.lsp.enable('lua_ls')
+vim.lsp.enable('zls')
+
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
