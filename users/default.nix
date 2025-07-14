@@ -5,10 +5,15 @@
 		packages = with pkgs; [
 				git
 				gcc
+				zig
+				go
 				gnumake
 				ripgrep
 				fd
 				unzip
+
+
+
 				
 				# lsps
 				lua-language-server
