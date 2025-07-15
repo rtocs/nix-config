@@ -12,6 +12,7 @@
 		extraGroups  = [ "wheel" "networkmanager" ];
 		openssh.authorizedKeys.keys  = [
 			secrets.wslKeyMain
+			secrets.winKeyLaptop
 		];
 	};
 }

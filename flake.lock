@@ -98,11 +98,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1752400883,
-        "narHash": "sha256-J7U2k+7ntuaSBMNJThIPd1Tn//dT1c8KTmTyZ10Un7A=",
+        "lastModified": 1752609273,
+        "narHash": "sha256-5pbQ7tboRdAjlRiQA/uGvNL2cdEcxU1P8hFkHp/APc0=",
         "ref": "refs/heads/main",
-        "rev": "59e44b13647569f49d4c493a8c5a248487c4c428",
-        "revCount": 5,
+        "rev": "070e78bc193974b55159e8e99ffaa95005cf1532",
+        "revCount": 6,
         "type": "git",
         "url": "ssh://git@github.com/rtocs/nix-config-secrets.git"
       },
