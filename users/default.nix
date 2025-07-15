@@ -11,6 +11,7 @@
 				ripgrep
 				fd
 				unzip
+				fzf
 
 				lua-language-server
 				zls
