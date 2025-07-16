@@ -13,6 +13,7 @@
 		openssh.authorizedKeys.keys  = [
 			secrets.wslKeyMain
 			secrets.winKeyLaptop
+			secrets.wslKeyLaptop
 		];
 	};
 }
