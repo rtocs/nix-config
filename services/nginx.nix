@@ -1,19 +1,13 @@
-{ secrets, ... } :
+{ secrets, pkgs, ... } :
 {
 
 # users.users.nginx = {
 # };
-
-	systemd.services.nginx = {
+	services.nginx = {
 		enable = true;
-
-		recommendedGzipSettings = true;
-		recommendedProxySettings = true;
-		recommendedTlsSettings = true;
-
-		virtualHosts.secrests.testDomain = {
-			enableACME = true;
-			forceSSL = true;
+		virtualHosts.${secrets.testDomain} = {
+			# enableACME = true;
+			# forceSSL = true;
 
 			root = pkgs.runCommand "hello-world-site" {} ''
 				mkdir -p $out
@@ -28,10 +22,10 @@
 		};
 	};
 
-	security.acme = {
-		acceptTerms = true;
-		defaults.email = secrets.mainEmail:
-	};
+	# security.acme = {
+	# 	acceptTerms = true;
+	# 	defaults.email = secrets.mainEmail:
+	# };
 
-	networking.firewall.allowedTCPPorts = [ 80 443 ];
+	networking.firewall.allowedTCPPorts = [ 80 ];
 }

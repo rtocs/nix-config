@@ -47,7 +47,7 @@
 				}
 				./digitalOceanDroplet/configuration.nix
 				./users/server.nix
-				# ./services/nginx.nix
+				./services/nginx.nix
 			];
 		};
 	};
