@@ -48,6 +48,7 @@
 				./digitalOceanDroplet/configuration.nix
 				./users/server.nix
 				./services/nginx.nix
+				./services/gameserver.nix
 			];
 		};
 	};
