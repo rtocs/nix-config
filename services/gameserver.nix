@@ -3,11 +3,14 @@
 	users.users.gameserver = {
 		isSystemUser = true;
 		description = "game server user";
-		group = "gameserver"
+		group = "gameserver";
 		home = "/home/gameserver";
 	};
 
-	users.group.gameserver = {};
+	users.groups.gameserver = {
+		name = "gameserver";
+	};
+
 
 	systemd.services.gameserver = {
 		description = "game server";

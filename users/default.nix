@@ -12,6 +12,7 @@
 				fd
 				unzip
 				fzf
+				nmap
 
 				lua-language-server
 				zls
