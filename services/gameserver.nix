@@ -1,16 +1,21 @@
 {pkgs, secrets, ...} :
 {
-	users.users.gameserver = {
-		isSystemUser = true;
-		description = "game server user";
-		group = "gameserver";
-		home = "/home/gameserver";
-	};
-
-	users.groups.gameserver = {
-		name = "gameserver";
-	};
-
+	# TODO
+	# users.users.gameserver = {
+	# 	isSystemUser = true;
+	# 	description = "game server user";
+	# 	group = "gameserver";
+	# 	home = "/home/gameserver";
+	# 	openssh.authorizedKeys.keys  = [
+	# 		secrets.wslKeyMain
+	# 		secrets.wslKeyLaptop
+	# 		secrets.winKeyLaptop
+	# 	];
+	# };
+	#
+	# users.groups.gameserver = {
+	# 	name = "gameserver";
+	# };
 
 	systemd.services.gameserver = {
 		description = "game server";
@@ -19,10 +24,10 @@
 		after = [ "network.target" ];
 
 		serviceConfig = {
-			ExecStart = "/home/gameserver/test/main";
-			WorkingDirectory = "/home/server/test/"; 
+			ExecStart = "/home/nixos/main";
+			WorkingDirectory = "/home/nixos/"; 
 			Restart = "always";
-			User = "gameserver";
+			User = "nixos";
 		};
 	};
 
