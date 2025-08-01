@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
 vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -56,6 +57,7 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
 vim.keymap.set("n", "<C-m>", "<C-w>-", { desc = "smaller" })
 vim.keymap.set("n", "<C-p>", "<C-w>+", { desc = "bigger" })
 
@@ -87,7 +89,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
@@ -104,13 +105,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
           ---@param method vim.lsp.protocol.Method
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
-          local function client_supports_method(client, method, bufnr)
-            if vim.fn.has 'nvim-0.11' == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
-          end
+	  local function client_supports_method(client, method, bufnr)
+		  return client:supports_method(method, bufnr)
+	  end
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -220,7 +217,7 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     disable = function(_, buf)
-        local max_filesize = 100 * 1024 
+        local max_filesize = 100 * 1024
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
             return true
@@ -232,6 +229,3 @@ require'nvim-treesitter.configs'.setup {
 
 require("oil").setup()
 vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>', { desc = 'oil' })
-
-
-vim.keymap.set('n', '<leader>r', '<cmd>Rest run<CR>', { desc = 'run rest' })

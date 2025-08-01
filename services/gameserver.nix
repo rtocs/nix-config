@@ -1,27 +1,27 @@
 {pkgs, secrets, ...} :
 {
-	# TODO
-	# users.users.gameserver = {
-	# 	isSystemUser = true;
-	# 	description = "game server user";
-	# 	group = "gameserver";
-	# 	home = "/home/gameserver";
-	# 	openssh.authorizedKeys.keys  = [
-	# 		secrets.wslKeyMain
-	# 		secrets.wslKeyLaptop
-	# 		secrets.winKeyLaptop
-	# 	];
-	# };
-	#
-	# users.groups.gameserver = {
-	# 	name = "gameserver";
-	# };
+	users.users.gameserver = {
+		isSystemUser = true;
+		description = "game server user";
+		group = "gameserver";
+		home = "/home/gameserver";
+		openssh.authorizedKeys.keys  = [
+			secrets.wslKeyMain
+			secrets.wslKeyLaptop
+			secrets.winKeyLaptop
+		];
+	};
+
+	users.groups.gameserver = {
+		name = "gameserver";
+	};
 
 	systemd.services.gameserver = {
 		description = "game server";
 		enable = true;
 		wantedBy = [ "multi-user.target" ];
 		after = [ "network.target" ];
+
 
 		serviceConfig = {
 			ExecStart = "/home/nixos/main";
