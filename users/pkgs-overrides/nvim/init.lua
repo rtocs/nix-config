@@ -11,6 +11,7 @@ vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
 
+
 vim.cmd 'colorscheme habamax'
 vim.opt.breakindent = true
 vim.opt.undofile = true
@@ -76,74 +77,70 @@ vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = 'marks' })
 vim.keymap.set('n', '<leader>sr', builtin.registers, { desc = 'Telescope help tags' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
-        callback = function(event)
+	group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+	callback = function(event)
 
-          local map = function(keys, func, desc, mode)
-            mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
-          end
+		local map = function(keys, func, desc, mode)
+			mode = mode or 'n'
+			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+		end
 
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-          map('<leader>a', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
+		map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+		map('<leader>a', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
+		map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-          map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-
-          map('gtd', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
-          map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
-
-          -- Fuzzy find all the symbols in your current workspace.
-          --  Similar to document symbols, except searches over your entire project.
-          map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
+		map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+		map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+		map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+		map('gtd', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+		map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+		map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
 
 
-          -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-          ---@param client vim.lsp.Client
-          ---@param method vim.lsp.protocol.Method
-          ---@param bufnr? integer some lsp support methods only in specific files
-          ---@return boolean
-	  local function client_supports_method(client, method, bufnr)
-		  return client:supports_method(method, bufnr)
-	  end
+		-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
+		---@param client vim.lsp.Client
+		---@param method vim.lsp.protocol.Method
+		---@param bufnr? integer some lsp support methods only in specific files
+		---@return boolean
+		local function client_supports_method(client, method, bufnr)
+			return client:supports_method(method, bufnr)
+		end
 
-          -- The following two autocommands are used to highlight references of the
-          -- word under your cursor when your cursor rests there for a little while.
-          --    See `:help CursorHold` for information about when this is executed
-          --
-          -- When you move your cursor, the highlights will be cleared (the second autocommand).
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
+		-- The following two autocommands are used to highlight references of the
+		-- word under your cursor when your cursor rests there for a little while.
+		--    See `:help CursorHold` for information about when this is executed
+		--
+		-- When you move your cursor, the highlights will be cleared (the second autocommand).
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
+		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+			local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+			vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+				buffer = event.buf,
+				group = highlight_augroup,
+				callback = vim.lsp.buf.document_highlight,
+			})
 
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
+			vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+				buffer = event.buf,
+				group = highlight_augroup,
+				callback = vim.lsp.buf.clear_references,
+			})
 
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-              callback = function(event2)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-              end,
-            })
-          end
+			vim.api.nvim_create_autocmd('LspDetach', {
+				group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+				callback = function(event2)
+					vim.lsp.buf.clear_references()
+					vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+				end,
+			})
+		end
 
-          if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
-          end
-        end,
+		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+			map('<leader>th', function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+			end, '[T]oggle Inlay [H]ints')
+		end
+	end,
 })
 
 vim.diagnostic.config {
@@ -175,37 +172,37 @@ vim.diagnostic.config {
 
 -- do we even use this?
 vim.lsp.config('lua_ls', {
-   on_init = function(client)
-     if client.workspace_folders then
-       local path = client.workspace_folders[1].name
-       if
-         path ~= vim.fn.stdpath('config')
-         and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-       then
-         return
-       end
-     end
+	on_init = function(client)
+		if client.workspace_folders then
+			local path = client.workspace_folders[1].name
+			if
+				path ~= vim.fn.stdpath('config')
+				and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+				then
+					return
+				end
+			end
 
-     client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-       runtime = {
-         version = 'LuaJIT',
-         path = {
-           'lua/?.lua',
-           'lua/?/init.lua',
-         },
-       },
-       -- Make the server aware of Neovim runtime files
-       workspace = {
-         checkThirdParty = false,
-         library = {
-           vim.env.VIMRUNTIME
-         }
-       }
-     })
-   end,
-   settings = {
-     Lua = {}
-   }
+			client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+				runtime = {
+					version = 'LuaJIT',
+					path = {
+						'lua/?.lua',
+						'lua/?/init.lua',
+					},
+				},
+				-- Make the server aware of Neovim runtime files
+				workspace = {
+					checkThirdParty = false,
+					library = {
+						vim.env.VIMRUNTIME
+					}
+				}
+			})
+		end,
+		settings = {
+			Lua = {}
+		}
 })
 
 
@@ -214,17 +211,17 @@ vim.lsp.enable('zls')
 vim.lsp.enable('gopls')
 
 require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    disable = function(_, buf)
-        local max_filesize = 100 * 1024
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
-    additional_vim_regex_highlighting = false,
-  },
+	highlight = {
+		enable = true,
+		disable = function(_, buf)
+			local max_filesize = 100 * 1024
+			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+			if ok and stats and stats.size > max_filesize then
+				return true
+			end
+		end,
+		additional_vim_regex_highlighting = false,
+	},
 }
 
 require("oil").setup()

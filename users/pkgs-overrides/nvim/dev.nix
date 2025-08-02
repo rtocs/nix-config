@@ -5,7 +5,6 @@ pkgs.neovim.override {
 			nvim-lspconfig
 			telescope-nvim
 			oil-nvim
-			rest-nvim
 			
 			nvim-treesitter
 			nvim-treesitter-parsers.http
