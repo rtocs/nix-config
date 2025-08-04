@@ -71,15 +71,45 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = 'marks' })
-vim.keymap.set('n', '<leader>sr', builtin.registers, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+require('telescope').setup {
+	extensions = {
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown {
+				-- even more opts
+			}
+
+			-- pseudo code / specification for writing custom displays, like the one
+			-- for "codeactions"
+			-- specific_opts = {
+			--   [kind] = {
+			--     make_indexed = function(items) -> indexed_items, width,
+			--     make_displayer = function(widths) -> displayer
+			--     make_display = function(displayer) -> function(e)
+			--     make_ordinal = function(e) -> string
+			--   },
+			--   -- for example to disable the custom builtin "codeactions" display
+			--      do the following
+			--   codeactions = false,
+			-- }
+		}
+	}
+}
+require("telescope").load_extension("ui-select")
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
 	callback = function(event)
-
 		local map = function(keys, func, desc, mode)
 			mode = mode or 'n'
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -88,7 +118,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 		map('<leader>a', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
 		map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
 		map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 		map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 		map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
@@ -113,7 +142,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- When you move your cursor, the highlights will be cleared (the second autocommand).
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-			local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+			local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight',
+				{ clear = false })
 			vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
 				buffer = event.buf,
 				group = highlight_augroup,
@@ -176,33 +206,33 @@ vim.lsp.config('lua_ls', {
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
 			if
-				path ~= vim.fn.stdpath('config')
-				and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-				then
-					return
-				end
+			    path ~= vim.fn.stdpath('config')
+			    and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+			then
+				return
 			end
+		end
 
-			client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-				runtime = {
-					version = 'LuaJIT',
-					path = {
-						'lua/?.lua',
-						'lua/?/init.lua',
-					},
+		client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+			runtime = {
+				version = 'LuaJIT',
+				path = {
+					'lua/?.lua',
+					'lua/?/init.lua',
 				},
-				-- Make the server aware of Neovim runtime files
-				workspace = {
-					checkThirdParty = false,
-					library = {
-						vim.env.VIMRUNTIME
-					}
+			},
+			-- Make the server aware of Neovim runtime files
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME
 				}
-			})
-		end,
-		settings = {
-			Lua = {}
-		}
+			}
+		})
+	end,
+	settings = {
+		Lua = {}
+	}
 })
 
 
@@ -210,7 +240,7 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('zls')
 vim.lsp.enable('gopls')
 
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
 	highlight = {
 		enable = true,
 		disable = function(_, buf)
