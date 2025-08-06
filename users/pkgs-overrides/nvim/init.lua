@@ -83,13 +83,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
 		end
 
-		map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 		map('<leader>a', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
-		map('<leader>f', vim.lsp.buf.format, 'Format file')
-
-		-- vim.keymap.set("n", "<leader>f", function()
-		-- 	vim.lsp.buf.format()
-		-- end, { desc = "Format file" })
+		map('<leader>f', vim.lsp.buf.format, 'format buffer', { 'n' })
 
 		map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 		map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')

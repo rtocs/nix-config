@@ -3,10 +3,7 @@ pkgs.neovim.override {
 	configure = {
 		packages.myPlugins.start = with pkgs.vimPlugins; [
 			nvim-lspconfig
-			
 			telescope-nvim
-			telescope-ui-select-nvim
-
 			oil-nvim
 			
 			nvim-treesitter
