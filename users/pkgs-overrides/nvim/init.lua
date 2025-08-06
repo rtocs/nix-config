@@ -1,9 +1,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 vim.g.have_nerd_font = true
+
 vim.opt.number = true
 vim.opt.relativenumber = true
+
 vim.opt.mouse = "a"
 vim.opt.showmode = false
 
@@ -11,24 +12,16 @@ vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
 
-
 vim.cmd 'colorscheme habamax'
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Keep signcolumn on by default
 vim.opt.signcolumn = "yes"
-
--- Decrease update time
 vim.opt.updatetime = 250
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
 vim.opt.timeoutlen = 300
 
--- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
@@ -49,8 +42,7 @@ vim.opt.scrolloff = 10
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+-- terminal
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- window
@@ -58,7 +50,6 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
 vim.keymap.set("n", "<C-m>", "<C-w>-", { desc = "smaller" })
 vim.keymap.set("n", "<C-p>", "<C-w>+", { desc = "bigger" })
 
@@ -75,37 +66,14 @@ vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' 
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>w', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+vim.keymap.set('n', '<leader>e', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
-require('telescope').setup {
-	extensions = {
-		["ui-select"] = {
-			require("telescope.themes").get_dropdown {
-				-- even more opts
-			}
-
-			-- pseudo code / specification for writing custom displays, like the one
-			-- for "codeactions"
-			-- specific_opts = {
-			--   [kind] = {
-			--     make_indexed = function(items) -> indexed_items, width,
-			--     make_displayer = function(widths) -> displayer
-			--     make_display = function(displayer) -> function(e)
-			--     make_ordinal = function(e) -> string
-			--   },
-			--   -- for example to disable the custom builtin "codeactions" display
-			--      do the following
-			--   codeactions = false,
-			-- }
-		}
-	}
-}
-require("telescope").load_extension("ui-select")
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -117,6 +85,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 		map('<leader>a', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
+		map('<leader>f', vim.lsp.buf.format, 'Format file')
+
+		-- vim.keymap.set("n", "<leader>f", function()
+		-- 	vim.lsp.buf.format()
+		-- end, { desc = "Format file" })
+
 		map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 		map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 		map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -255,4 +229,4 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 require("oil").setup()
-vim.keymap.set('n', '<leader>e', '<cmd>Oil<CR>', { desc = 'oil' })
+vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
