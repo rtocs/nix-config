@@ -66,10 +66,10 @@ vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' 
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-vim.keymap.set('n', '<leader>w', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
 
-vim.keymap.set('n', '<leader>e', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>e', builtin.diagnostics, { desc = 'errors' })
+vim.keymap.set('n', '<leader>w', builtin.grep_string, { desc = 'grep word' })
 
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -140,11 +140,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			end, '[T]oggle Inlay [H]ints')
 		end
 	end,
+
 })
+
+
 
 vim.diagnostic.config {
 	severity_sort = true,
-	float = { border = 'rounded', source = 'if_many' },
+	float = { border = 'rounded', source = 'if_many', wrap = true },
 	underline = { severity = vim.diagnostic.severity.ERROR },
 	signs = vim.g.have_nerd_font and {
 		text = {
@@ -214,7 +217,7 @@ require 'nvim-treesitter.configs'.setup {
 		enable = true,
 		disable = function(_, buf)
 			local max_filesize = 100 * 1024
-			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+			local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
 			if ok and stats and stats.size > max_filesize then
 				return true
 			end
@@ -223,5 +226,62 @@ require 'nvim-treesitter.configs'.setup {
 	},
 }
 
+
 require("oil").setup()
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
+
+-- TODO
+-- local mc = require("multicursors")
+-- mc.setup()
+--
+-- local set = vim.keymap.set
+--
+-- -- Add or skip cursor above/below the main cursor.
+-- set({ "n", "x" }, "<up>", function() mc.lineAddCursor(-1) end)
+-- set({ "n", "x" }, "<down>", function() mc.lineAddCursor(1) end)
+-- set({ "n", "x" }, "<leader><up>", function() mc.lineSkipCursor(-1) end)
+-- set({ "n", "x" }, "<leader><down>", function() mc.lineSkipCursor(1) end)
+--
+-- -- Add or skip adding a new cursor by matching word/selection
+-- set({ "n", "x" }, "<leader>n", function() mc.matchAddCursor(1) end)
+-- set({ "n", "x" }, "<leader>s", function() mc.matchSkipCursor(1) end)
+-- set({ "n", "x" }, "<leader>N", function() mc.matchAddCursor(-1) end)
+-- set({ "n", "x" }, "<leader>S", function() mc.matchSkipCursor(-1) end)
+--
+-- -- Add and remove cursors with control + left click.
+-- set("n", "<c-leftmouse>", mc.handleMouse)
+-- set("n", "<c-leftdrag>", mc.handleMouseDrag)
+-- set("n", "<c-leftrelease>", mc.handleMouseRelease)
+--
+-- -- Disable and enable cursors.
+-- set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+--
+-- -- Mappings defined in a keymap layer only apply when there are
+-- -- multiple cursors. This lets you have overlapping mappings.
+-- mc.addKeymapLayer(function(layerSet)
+-- 	-- Select a different cursor as the main one.
+-- 	layerSet({ "n", "x" }, "<left>", mc.prevCursor)
+-- 	layerSet({ "n", "x" }, "<right>", mc.nextCursor)
+--
+-- 	-- Delete the main cursor.
+-- 	layerSet({ "n", "x" }, "<leader>x", mc.deleteCursor)
+--
+-- 	-- Enable and clear cursors using escape.
+-- 	layerSet("n", "<esc>", function()
+-- 		if not mc.cursorsEnabled() then
+-- 			mc.enableCursors()
+-- 		else
+-- 			mc.clearCursors()
+-- 		end
+-- 	end)
+-- end)
+--
+-- -- Customize how cursors look.
+-- local hl = vim.api.nvim_set_hl
+-- hl(0, "MultiCursorCursor", { reverse = true })
+-- hl(0, "MultiCursorVisual", { link = "Visual" })
+-- hl(0, "MultiCursorSign", { link = "SignColumn" })
+-- hl(0, "MultiCursorMatchPreview", { link = "Search" })
+-- hl(0, "MultiCursorDisabledCursor", { reverse = true })
+-- hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+-- hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })

@@ -3,10 +3,12 @@
 	users.users.nixos = {
 		isNormalUser  = true;
 		packages = with pkgs; [
-			git
+				git
+
 				gcc
 				zig
 				go
+
 				gnumake
 				ripgrep
 				fd

@@ -6,14 +6,16 @@ pkgs.neovim.override {
 			telescope-nvim
 			oil-nvim
 			
+			# blink-cmp
+			# TODO
+			# multicursors-nvim
+
 			nvim-treesitter
 			nvim-treesitter-parsers.http
 			nvim-treesitter-parsers.nix
 			nvim-treesitter-parsers.lua
 			nvim-treesitter-parsers.zig
 			nvim-treesitter-parsers.go
-
-			# ?
 			nvim-treesitter-parsers.html
 			nvim-treesitter-parsers.javascript
 			nvim-treesitter-parsers.css
