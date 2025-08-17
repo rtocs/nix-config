@@ -5,10 +5,11 @@ pkgs.neovim.override {
 			nvim-lspconfig
 			telescope-nvim
 			oil-nvim
-			
-			# blink-cmp
+			blink-cmp
+
 			# TODO
 			# multicursors-nvim
+
 
 			nvim-treesitter
 			nvim-treesitter-parsers.http
