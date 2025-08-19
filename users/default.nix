@@ -3,12 +3,6 @@
 	users.users.nixos = {
 		isNormalUser  = true;
 		packages = with pkgs; [
-				git
-
-				gcc
-				zig
-				go
-
 				gnumake
 				ripgrep
 				fd
@@ -16,10 +10,18 @@
 				fzf
 				nmap
 
+				sqlite
+
+				# Compliers
+				gcc
+				zig
+				go
+
+				# dev env
+				git
 				lua-language-server
 				zls
 				gopls
-
 				(import ./pkgs-overrides/nvim/dev.nix { inherit pkgs; })
 		];
 

@@ -62,7 +62,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- auto complete
-require("blink.cmp").setup()
+require("blink.cmp").setup({
+	-- does not work on wsl :(
+	cmdline = { enabled = false },
+	term    = { enabled = false },
+})
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
