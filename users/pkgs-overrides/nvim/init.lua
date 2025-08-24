@@ -53,6 +53,10 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set("n", "<C-m>", "<C-w>-", { desc = "smaller" })
 vim.keymap.set("n", "<C-p>", "<C-w>+", { desc = "bigger" })
 
+-- buffers
+--
+vim.keymap.set('n', '<leader>q', '<cmd>bd<CR>', { desc = 'close current buffer' })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
