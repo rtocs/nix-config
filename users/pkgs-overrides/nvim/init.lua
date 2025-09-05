@@ -79,7 +79,10 @@ vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
 
-vim.keymap.set('n', '<leader>e', builtin.diagnostics, { desc = 'errors' })
+vim.keymap.set('n', '<leader>ae', builtin.diagnostics, { desc = 'all errors' })
+vim.keymap.set('n', '<leader>e', '<cmd>Telescope diagnostics bufnr=0<CR>', { desc = 'errors in current buffer' })
+
+vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
 vim.keymap.set('n', '<leader>w', builtin.grep_string, { desc = 'grep word' })
 
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
