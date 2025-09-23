@@ -224,6 +224,7 @@ vim.lsp.config('lua_ls', {
 
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('zls')
+vim.lsp.enable('nil_ls')
 vim.lsp.enable('gopls')
 
 require 'nvim-treesitter.configs'.setup {
