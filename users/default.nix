@@ -22,7 +22,9 @@
       lua-language-server
       nil
       zls
+
       gopls
+      delve
       (import ./pkgs-overrides/nvim/dev.nix { inherit pkgs; })
     ];
 

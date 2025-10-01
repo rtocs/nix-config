@@ -100,6 +100,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('<leader>ca', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
 		map('<leader>f', vim.lsp.buf.format, 'format buffer', { 'n' })
 
+		-- local function format_all_in_cwd()
+		-- 	vim.cmd("args " .. vim.fn.getcwd() .. "/*")
+		-- 	vim.cmd("argdo lua vim.lsp.buf.format() | update")
+		-- end
+		-- map('<leader>fa', format_all_in_cwd, 'format all files in cwd', { 'n' })
+
 		map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 		map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 		map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -244,3 +250,56 @@ require 'nvim-treesitter.configs'.setup {
 
 require("oil").setup()
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
+
+-- debugger golang
+local dap = require("dap")
+local dapui = require("dapui")
+local dapgo = require("dap-go")
+
+-- Setup dap-ui
+dapui.setup()
+
+dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+dap.listeners.before.event_exited["dapui_config"]     = function() dapui.close() end
+
+dap.adapters.go                                       = function(callback, _)
+	callback({
+		type = "server",
+		host = "127.0.0.1",
+		port = 2345,
+	})
+end
+
+dap.configurations.go                                 = {
+	{
+		type = "go",
+		name = "Attach to Windows Delve",
+		request = "attach",
+		mode = "remote",
+		port = 2345,
+		host = "127.0.0.1",
+	},
+}
+
+dapgo.setup({
+	dap_configurations = {
+	},
+	delve = {
+		path = "dlv",
+	},
+})
+
+vim.keymap.set("n", "<leader>r", function() dap.continue() end, { desc = "DAP Continue" })
+vim.keymap.set("n", "<leader>b", function() dap.toggle_breakpoint() end, { desc = "DAP Toggle Breakpoint" })
+
+-- vim.keymap.set("n", "<F10>", function() dap.step_over() end, { desc = "DAP Step Over" })
+-- vim.keymap.set("n", "dsi", function() dap.step_into() end, { desc = "DAP Step Into" })
+-- vim.keymap.set("n", "dso", function() dap.step_out() end, { desc = "DAP Step Out" })
+
+vim.keymap.set("n", "<leader>dt", function() dapgo.debug_test() end, { desc = "DAP Debug Test" })
+vim.keymap.set("n", "<leader>dl", function() dapgo.debug_last_test() end, { desc = "DAP Debug Last Test" })
+vim.keymap.set("n", "<leader>dq", function() dap.terminate() end, { desc = "kill debug session" })
+vim.keymap.set("n", "<F5>", function()
+	dap.continue()
+end, {desc = " dap continue"})
