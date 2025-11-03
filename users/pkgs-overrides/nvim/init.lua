@@ -71,7 +71,6 @@ require("blink.cmp").setup({
 	cmdline = { enabled = false },
 	term    = { enabled = false },
 })
-
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -296,10 +295,14 @@ vim.keymap.set("n", "<leader>b", function() dap.toggle_breakpoint() end, { desc 
 -- vim.keymap.set("n", "<F10>", function() dap.step_over() end, { desc = "DAP Step Over" })
 -- vim.keymap.set("n", "dsi", function() dap.step_into() end, { desc = "DAP Step Into" })
 -- vim.keymap.set("n", "dso", function() dap.step_out() end, { desc = "DAP Step Out" })
-
 vim.keymap.set("n", "<leader>dt", function() dapgo.debug_test() end, { desc = "DAP Debug Test" })
 vim.keymap.set("n", "<leader>dl", function() dapgo.debug_last_test() end, { desc = "DAP Debug Last Test" })
+--
 vim.keymap.set("n", "<leader>dq", function() dap.terminate() end, { desc = "kill debug session" })
 vim.keymap.set("n", "<F5>", function()
 	dap.continue()
-end, {desc = " dap continue"})
+end, { desc = " dap continue" })
+
+
+require("nvim-surround").setup({
+})

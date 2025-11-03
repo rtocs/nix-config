@@ -1,5 +1,6 @@
 build
 
+
 nixos-rebuild  switch --flake /home/nixos/nix-config#wsl-dev
 nixos-rebuild  switch --flake /home/nixos/nix-config#digitalocean-server
 

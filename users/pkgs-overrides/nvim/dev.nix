@@ -7,11 +7,12 @@ pkgs.neovim.override {
       oil-nvim
       blink-cmp
       nvim-dap
-      nvim-dap-go
       nvim-dap-ui
+      nvim-dap-go
 
       # TODO
       # multicursors-nvim
+      nvim-surround
 
       nvim-treesitter
       nvim-treesitter-parsers.http
