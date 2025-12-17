@@ -41,7 +41,7 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-vim.keymap.set("n", "<Leader>t", ":term ", {
+vim.keymap.set("n", "<Leader>t", "q:iterm ", {
 	desc = "qucik term command"
 })
 
