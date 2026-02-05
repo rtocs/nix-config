@@ -16,9 +16,11 @@
       gcc
       zig
       go
+      rustc
 
       # dev env
       git
+      cargo
       lua-language-server
       nil
       zls
