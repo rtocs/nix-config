@@ -24,6 +24,7 @@
       lua-language-server
       nil
       zls
+      python3
 
       gopls
       delve
