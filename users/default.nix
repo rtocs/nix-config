@@ -2,6 +2,7 @@
 {
   users.users.nixos = {
     isNormalUser = true;
+    # we want to extract the dev env
     packages = with pkgs; [
       gnumake
       ripgrep
