@@ -3,37 +3,7 @@
   users.users.nixos = {
     isNormalUser = true;
     # we want to extract the dev env
-    packages = with pkgs; [
-      gnumake
-      ripgrep
-      fd
-      unzip
-      fzf
-      nmap
-
-      sqlite
-
-      # Compliers
-      gcc
-      zig
-      go
-      rustc
-
-      # dev env
-      git
-      cargo
-      lua-language-server
-      nil
-      zls
-
-      python3
-      pyright
-
-      gopls
-      delve
-      (import ./pkgs-overrides/nvim/dev.nix { inherit pkgs; })
-    ];
-
+    packages = (import .pkgs-envs/default_dev.nix { inherit pkgs; });
     home = "/home/nixos";
     description = "nix";
     extraGroups = [
