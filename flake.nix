@@ -17,6 +17,7 @@
       ...
     }:
     {
+
       nixosConfigurations.wsl-dev = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -26,6 +27,13 @@
             wsl.enable = true;
           }
           ./wsl/configuration.nix
+          ./users/default.nix
+        ];
+      };
+
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
           ./users/default.nix
         ];
       };
