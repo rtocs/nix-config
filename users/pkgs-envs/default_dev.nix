@@ -10,11 +10,11 @@ with pkgs;
 
   sqlite
 
-  # Compliers
   gcc
   zig
   go
   rustc
+  elixir
 
   # dev env
   git
