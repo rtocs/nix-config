@@ -25,6 +25,7 @@ pkgs.neovim.override {
       nvim-treesitter-parsers.javascript
       nvim-treesitter-parsers.css
       nvim-treesitter-parsers.nix
+      nvim-treesitter-parsers.elixir
     ];
 
     customRC = ''
