@@ -7,6 +7,7 @@ with pkgs;
   unzip
   fzf
   nmap
+  opencode
 
   sqlite
 
@@ -15,6 +16,7 @@ with pkgs;
   go
   rustc
   elixir
+  elixir-ls
 
   # dev env
   git

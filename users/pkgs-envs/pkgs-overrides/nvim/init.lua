@@ -241,6 +241,13 @@ vim.lsp.enable('nil_ls')
 vim.lsp.enable('pyright')
 vim.lsp.enable('gopls')
 
+vim.lsp.config('elixirls', {
+	cmd = { "elixir-ls" };
+	filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' };
+
+})
+vim.lsp.enable('elixirls')
+
 require 'nvim-treesitter.configs'.setup {
 	highlight = {
 		enable = true,
