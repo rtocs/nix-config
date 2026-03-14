@@ -10,7 +10,7 @@ with pkgs;
   opencode
 
   sqlite
-
+  tree-sitter
   gcc
   zig
   go

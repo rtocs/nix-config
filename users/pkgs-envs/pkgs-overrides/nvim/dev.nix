@@ -13,19 +13,7 @@ pkgs.neovim.override {
       # TODO
       # multicursors-nvim
       nvim-surround
-
       nvim-treesitter
-      nvim-treesitter-parsers.http
-      nvim-treesitter-parsers.nix
-      nvim-treesitter-parsers.lua
-      nvim-treesitter-parsers.zig
-      nvim-treesitter-parsers.go
-      nvim-treesitter-parsers.html
-      nvim-treesitter-parsers.python
-      nvim-treesitter-parsers.javascript
-      nvim-treesitter-parsers.css
-      nvim-treesitter-parsers.nix
-      nvim-treesitter-parsers.elixir
     ];
 
     customRC = ''

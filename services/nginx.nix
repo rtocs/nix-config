@@ -13,7 +13,7 @@
 
       locations = {
         "/" = {
-          extraConfig = ''index index.html;'';
+          extraConfig = "index index.html;";
         };
       };
 

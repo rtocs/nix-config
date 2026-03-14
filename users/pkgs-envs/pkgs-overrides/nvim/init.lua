@@ -79,6 +79,10 @@ require("blink.cmp").setup({
 	cmdline = { enabled = false },
 	term    = { enabled = false },
 })
+
+require("nvim-treesitter").setup()
+require 'nvim-treesitter'.install { 'http', 'nix', 'lua', 'go', 'html', 'python', 'elixir', 'javascript' }
+
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -241,14 +245,19 @@ vim.lsp.enable('nil_ls')
 vim.lsp.enable('pyright')
 vim.lsp.enable('gopls')
 
-vim.lsp.config('elixirls', {
-	cmd = { "elixir-ls" };
-	filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' };
+-- vim.lsp.config('elixirls', {
+-- 	cmd = { "elixir-ls" },
+-- 	filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
+--
+-- })
 
-})
 vim.lsp.enable('elixirls')
 
 require("oil").setup()
+
+
+
+
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
 
 -- debugger golang
