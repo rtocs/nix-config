@@ -81,7 +81,15 @@ require("blink.cmp").setup({
 })
 
 require("nvim-treesitter").setup()
-require 'nvim-treesitter'.install { 'http', 'nix', 'lua', 'go', 'html', 'python', 'elixir', 'javascript' }
+
+local treesitter_files_types = { 'http', 'nix', 'lua', 'go', 'html', 'python', 'elixir', 'javascript', 'zig' }
+
+require 'nvim-treesitter'.install(treesitter_files_types)
+
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = (treesitter_files_types),
+	callback = function() vim.treesitter.start() end,
+})
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
