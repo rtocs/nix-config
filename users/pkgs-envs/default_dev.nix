@@ -8,7 +8,6 @@ with pkgs;
   fzf
   nmap
   opencode
-
   sqlite
   tree-sitter
   gcc
@@ -17,17 +16,13 @@ with pkgs;
   rustc
   elixir
   elixir-ls
-
-  # dev env
   git
   cargo
   lua-language-server
   nil
   zls
-
   python3
   pyright
-
   gopls
   delve
   (import pkgs-overrides/nvim/dev.nix { inherit pkgs; })
