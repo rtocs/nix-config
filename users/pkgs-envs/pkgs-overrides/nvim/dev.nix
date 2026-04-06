@@ -10,8 +10,6 @@ pkgs.neovim.override {
       nvim-dap-ui
       nvim-dap-go
 
-      # TODO
-      multicursors-nvim
       nvim-surround
       nvim-treesitter
     ];

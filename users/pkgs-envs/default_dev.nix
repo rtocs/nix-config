@@ -25,5 +25,6 @@ with pkgs;
   pyright
   gopls
   delve
+  racket 
   (import pkgs-overrides/nvim/dev.nix { inherit pkgs; })
 ]
