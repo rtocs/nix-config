@@ -82,7 +82,7 @@ require("blink.cmp").setup({
 
 require("nvim-treesitter").setup()
 
-local treesitter_files_types = { 'http', 'nix', 'lua', 'go', 'html', 'python', 'elixir', 'javascript', 'zig', 'bash' }
+local treesitter_files_types = { 'http', 'nix', 'lua', 'go', 'html', 'python', 'elixir', 'javascript', 'zig', 'bash', 'racket' }
 
 require 'nvim-treesitter'.install(treesitter_files_types)
 

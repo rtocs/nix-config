@@ -7,7 +7,6 @@ with pkgs;
   unzip
   fzf
   nmap
-  opencode
   sqlite
   tree-sitter
   gcc
@@ -25,6 +24,10 @@ with pkgs;
   pyright
   gopls
   delve
-  racket 
+  racket
   (import pkgs-overrides/nvim/dev.nix { inherit pkgs; })
+
+  # vide tools
+  opencode
+  claude-code
 ]
