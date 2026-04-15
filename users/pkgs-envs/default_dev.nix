@@ -15,6 +15,7 @@ with pkgs;
   rustc
   elixir
   elixir-ls
+  # (import pkgs-overrides/git/dev.nix { inherit pkgs; })
   git
   cargo
   lua-language-server

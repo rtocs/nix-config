@@ -4,11 +4,11 @@
 let
   gitConfig = pkgs.writeText "gitconfig" ''
     [diff]
-      tool = vimdiff
+      tool = nvimdiff
     [difftool]
       prompt = false
     [merge]
-      tool = vimdiff
+      tool = nvimdiff
     [mergetool]
       prompt = false
     [core]
