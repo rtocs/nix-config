@@ -5,7 +5,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -62,7 +61,6 @@ vim.keymap.set("n", "<C-m>", "<C-w>-", { desc = "smaller" })
 vim.keymap.set("n", "<C-p>", "<C-w>+", { desc = "bigger" })
 
 -- buffers
---
 vim.keymap.set('n', '<leader>q', '<cmd>bd<CR>', { desc = 'close current buffer' })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -93,18 +91,18 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.keymap.set('n', '<leader>p', function()
-  local branch = vim.fn.system('git branch --show-current'):gsub('%s+', '')
-  local msg = vim.fn.input('Commit message: ')
-  if msg == '' then
-    print('Commit aborted: no message provided')
-    return
-  end
-  local confirm = vim.fn.input('Push to ' .. branch .. '? (y/n): ')
-  if confirm ~= 'y' then
-    print('Push aborted')
-    return
-  end
-  vim.cmd('!git add . && git commit -m ' .. vim.fn.shellescape(msg) .. ' && git push')
+	local branch = vim.fn.system('git branch --show-current'):gsub('%s+', '')
+	local msg = vim.fn.input('Commit message: ')
+	if msg == '' then
+		print('Commit aborted: no message provided')
+		return
+	end
+	local confirm = vim.fn.input('Push to ' .. branch .. '? (y/n): ')
+	if confirm ~= 'y' then
+		print('Push aborted')
+		return
+	end
+	vim.cmd('!git add . && git commit -m ' .. vim.fn.shellescape(msg) .. ' && git push')
 end, { desc = 'git add, commit, push with confirmation' })
 
 vim.keymap.set('n', '<leader>l', function()
@@ -134,13 +132,13 @@ vim.keymap.set('n', '<leader>ad', function()
 end, { desc = 'git diff all files' })
 
 vim.keymap.set('n', '<leader>nd', function()
-  vim.cmd('diffthis')
-  vim.cmd('vnew')
-  vim.cmd('r !git show HEAD:' .. vim.fn.expand('#:'))
-  vim.cmd('1delete')
-  vim.bo.buftype = 'nofile'
-  vim.bo.modifiable = false
-  vim.cmd('diffthis')
+	vim.cmd('diffthis')
+	vim.cmd('vnew')
+	vim.cmd('r !git show HEAD:' .. vim.fn.expand('#:'))
+	vim.cmd('1delete')
+	vim.bo.buftype = 'nofile'
+	vim.bo.modifiable = false
+	vim.cmd('diffthis')
 end, { desc = 'diff current file against HEAD using nvim diff' })
 
 vim.keymap.set('n', '<leader>d', function()
@@ -164,8 +162,6 @@ vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'git status' })
 
 vim.keymap.set('n', '<leader>ae', builtin.diagnostics, { desc = 'all errors' })
 vim.keymap.set('n', '<leader>e', '<cmd>Telescope diagnostics bufnr=0<CR>', { desc = 'errors in current buffer' })
-
-vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
 vim.keymap.set('n', '<leader>w', builtin.grep_string, { desc = 'grep word' })
 
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
@@ -183,12 +179,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('<leader>ca', vim.lsp.buf.code_action, 'Code [A]ction', { 'n', 'x' })
 		map('<leader>f', vim.lsp.buf.format, 'format buffer', { 'n' })
 
-		-- local function format_all_in_cwd()
-		-- 	vim.cmd("args " .. vim.fn.getcwd() .. "/*")
-		-- 	vim.cmd("argdo lua vim.lsp.buf.format() | update")
-		-- end
-		-- map('<leader>fa', format_all_in_cwd, 'format all files in cwd', { 'n' })
-
 		map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 		map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 		map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -198,22 +188,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
 
 
-		-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-		---@param client vim.lsp.Client
-		---@param method vim.lsp.protocol.Method
-		---@param bufnr? integer some lsp support methods only in specific files
-		---@return boolean
-		local function client_supports_method(client, method, bufnr)
-			return client:supports_method(method, bufnr)
-		end
-
 		-- The following two autocommands are used to highlight references of the
 		-- word under your cursor when your cursor rests there for a little while.
 		--    See `:help CursorHold` for information about when this is executed
 		--
 		-- When you move your cursor, the highlights will be cleared (the second autocommand).
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
-		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
 			local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight',
 				{ clear = false })
 			vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -237,16 +218,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			})
 		end
 
-		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 			map('<leader>th', function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
 			end, '[T]oggle Inlay [H]ints')
 		end
 	end,
-
 })
-
-
 
 vim.diagnostic.config {
 	severity_sort = true,
@@ -275,7 +253,6 @@ vim.diagnostic.config {
 	},
 }
 
--- do we even use this?
 vim.lsp.config('lua_ls', {
 	on_init = function(client)
 		if client.workspace_folders then
@@ -310,26 +287,14 @@ vim.lsp.config('lua_ls', {
 	}
 })
 
-
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('zls')
 vim.lsp.enable('nil_ls')
 vim.lsp.enable('pyright')
 vim.lsp.enable('gopls')
-
--- vim.lsp.config('elixirls', {
--- 	cmd = { "elixir-ls" },
--- 	filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
---
--- })
-
 vim.lsp.enable('elixirls')
 
 require("oil").setup()
-
-
-
-
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
 
 -- debugger golang
@@ -337,15 +302,13 @@ local dap = require("dap")
 local dapui = require("dapui")
 local dapgo = require("dap-go")
 
-
--- Setup dap-ui
 dapui.setup()
 
 dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
 dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
-dap.listeners.before.event_exited["dapui_config"]     = function() dapui.close() end
+dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
 
-dap.adapters.go                                       = function(callback, _)
+dap.adapters.go = function(callback, _)
 	callback({
 		type = "server",
 		host = "127.0.0.1",
@@ -353,7 +316,7 @@ dap.adapters.go                                       = function(callback, _)
 	})
 end
 
-dap.configurations.go                                 = {
+dap.configurations.go = {
 	{
 		type = "go",
 		name = "Attach to Windows Delve",
@@ -365,8 +328,6 @@ dap.configurations.go                                 = {
 }
 
 dapgo.setup({
-	dap_configurations = {
-	},
 	delve = {
 		path = "dlv",
 	},
@@ -374,20 +335,12 @@ dapgo.setup({
 
 vim.keymap.set("n", "<leader>r", function() dap.continue() end, { desc = "DAP Continue" })
 vim.keymap.set("n", "<leader>b", function() dap.toggle_breakpoint() end, { desc = "DAP Toggle Breakpoint" })
-
--- vim.keymap.set("n", "<F10>", function() dap.step_over() end, { desc = "DAP Step Over" })
--- vim.keymap.set("n", "dsi", function() dap.step_into() end, { desc = "DAP Step Into" })
--- vim.keymap.set("n", "dso", function() dap.step_out() end, { desc = "DAP Step Out" })
 vim.keymap.set("n", "<leader>dt", function() dapgo.debug_test() end, { desc = "DAP Debug Test" })
 vim.keymap.set("n", "<leader>dl", function() dapgo.debug_last_test() end, { desc = "DAP Debug Last Test" })
---
 vim.keymap.set("n", "<leader>dq", function() dap.terminate() end, { desc = "kill debug session" })
-vim.keymap.set("n", "<F5>", function()
-	dap.continue()
-end, { desc = " dap continue" })
+vim.keymap.set("n", "<F5>", function() dap.continue() end, { desc = "dap continue" })
 
-require("nvim-surround").setup({
-})
+require("nvim-surround").setup()
 
 vim.cmd("packadd nvim.undotree")
 vim.cmd("packadd nvim.difftool")
