@@ -92,6 +92,21 @@ vim.api.nvim_create_autocmd('FileType', {
 	callback = function() vim.treesitter.start() end,
 })
 
+vim.keymap.set('n', '<leader>p', function()
+  local branch = vim.fn.system('git branch --show-current'):gsub('%s+', '')
+  local msg = vim.fn.input('Commit message: ')
+  if msg == '' then
+    print('Commit aborted: no message provided')
+    return
+  end
+  local confirm = vim.fn.input('Push to ' .. branch .. '? (y/n): ')
+  if confirm ~= 'y' then
+    print('Push aborted')
+    return
+  end
+  vim.cmd('!git add . && git commit -m ' .. vim.fn.shellescape(msg) .. ' && git push')
+end, { desc = 'git add, commit, push with confirmation' })
+
 vim.keymap.set('n', '<leader>l', function()
 	local file = vim.fn.expand('%:p')
 	vim.cmd('new')
