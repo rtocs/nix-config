@@ -109,7 +109,7 @@ end, { desc = 'git add, commit, push with confirmation' })
 
 vim.keymap.set('n', '<leader>l', function()
 	local file = vim.fn.expand('%:p')
-	vim.cmd('new')
+	vim.cmd('tabnew')
 	vim.cmd('r !git log -p --follow -- ' .. vim.fn.shellescape(file))
 	vim.bo.buftype = 'nofile'
 	vim.bo.modifiable = false
@@ -118,7 +118,7 @@ end, { desc = 'git log with patches for current file' })
 
 vim.keymap.set('n', '<leader>dc', function()
 	local n = vim.fn.input('Commits back: ')
-	vim.cmd('new')
+	vim.cmd('tabnew')
 	vim.cmd('r !git diff HEAD~' .. n)
 	vim.bo.buftype = 'nofile'
 	vim.bo.modifiable = false
@@ -126,16 +126,26 @@ vim.keymap.set('n', '<leader>dc', function()
 end, { desc = 'git diff with previous commit' })
 
 vim.keymap.set('n', '<leader>ad', function()
-	vim.cmd('new')
+	vim.cmd('tabnew')
 	vim.cmd('r !git diff')
 	vim.bo.buftype = 'nofile'
 	vim.bo.modifiable = false
 	vim.bo.filetype = 'diff'
 end, { desc = 'git diff all files' })
 
+vim.keymap.set('n', '<leader>nd', function()
+  vim.cmd('diffthis')
+  vim.cmd('vnew')
+  vim.cmd('r !git show HEAD:' .. vim.fn.expand('#:'))
+  vim.cmd('1delete')
+  vim.bo.buftype = 'nofile'
+  vim.bo.modifiable = false
+  vim.cmd('diffthis')
+end, { desc = 'diff current file against HEAD using nvim diff' })
+
 vim.keymap.set('n', '<leader>d', function()
 	local file = vim.fn.expand('%')
-	vim.cmd('new')
+	vim.cmd('tabnew')
 	vim.cmd('r !git diff ' .. file)
 	vim.bo.buftype = 'nofile'
 	vim.bo.modifiable = false
