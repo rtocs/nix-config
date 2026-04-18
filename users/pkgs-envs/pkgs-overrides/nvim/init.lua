@@ -92,6 +92,41 @@ vim.api.nvim_create_autocmd('FileType', {
 	callback = function() vim.treesitter.start() end,
 })
 
+vim.keymap.set('n', '<leader>l', function()
+	local file = vim.fn.expand('%:p')
+	vim.cmd('new')
+	vim.cmd('r !git log -p --follow -- ' .. vim.fn.shellescape(file))
+	vim.bo.buftype = 'nofile'
+	vim.bo.modifiable = false
+	vim.bo.filetype = 'diff'
+end, { desc = 'git log with patches for current file' })
+
+vim.keymap.set('n', '<leader>dc', function()
+	local n = vim.fn.input('Commits back: ')
+	vim.cmd('new')
+	vim.cmd('r !git diff HEAD~' .. n)
+	vim.bo.buftype = 'nofile'
+	vim.bo.modifiable = false
+	vim.bo.filetype = 'diff'
+end, { desc = 'git diff with previous commit' })
+
+vim.keymap.set('n', '<leader>ad', function()
+	vim.cmd('new')
+	vim.cmd('r !git diff')
+	vim.bo.buftype = 'nofile'
+	vim.bo.modifiable = false
+	vim.bo.filetype = 'diff'
+end, { desc = 'git diff all files' })
+
+vim.keymap.set('n', '<leader>d', function()
+	local file = vim.fn.expand('%')
+	vim.cmd('new')
+	vim.cmd('r !git diff ' .. file)
+	vim.bo.buftype = 'nofile'
+	vim.bo.modifiable = false
+	vim.bo.filetype = 'diff'
+end, { desc = 'git diff current file' })
+
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
