@@ -15,7 +15,6 @@ with pkgs;
   rustc
   elixir
   elixir-ls
-  # (import pkgs-overrides/git/dev.nix { inherit pkgs; })
   git
   cargo
   lua-language-server
@@ -28,7 +27,7 @@ with pkgs;
   racket
   (import pkgs-overrides/nvim/dev.nix { inherit pkgs; })
 
-  # vide tools
+  # vibe tools
   opencode
   claude-code
 ]
