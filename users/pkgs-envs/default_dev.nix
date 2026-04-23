@@ -1,6 +1,8 @@
 { pkgs }:
 with pkgs;
 [
+  aseprite
+
   gnumake
   ripgrep
   fd
