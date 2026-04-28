@@ -293,6 +293,7 @@ vim.lsp.enable('nil_ls')
 vim.lsp.enable('pyright')
 vim.lsp.enable('gopls')
 vim.lsp.enable('elixirls')
+vim.lsp.enable('clangd')
 
 require("oil").setup()
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })
@@ -334,6 +335,7 @@ dapgo.setup({
 })
 
 vim.keymap.set("n", "<leader>r", function() dap.continue() end, { desc = "DAP Continue" })
+
 vim.keymap.set("n", "<leader>b", function() dap.toggle_breakpoint() end, { desc = "DAP Toggle Breakpoint" })
 vim.keymap.set("n", "<leader>dt", function() dapgo.debug_test() end, { desc = "DAP Debug Test" })
 vim.keymap.set("n", "<leader>dl", function() dapgo.debug_last_test() end, { desc = "DAP Debug Last Test" })

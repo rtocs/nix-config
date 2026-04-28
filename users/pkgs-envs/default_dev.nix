@@ -11,7 +11,10 @@ with pkgs;
   nmap
   sqlite
   tree-sitter
+
   gcc
+  clang-tools
+
   zig
   go
   rustc
