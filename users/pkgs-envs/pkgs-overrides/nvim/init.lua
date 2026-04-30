@@ -73,21 +73,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- auto complete
 require("blink.cmp").setup({
-	-- does not work on wsl :(
 	cmdline = { enabled = false },
 	term    = { enabled = false },
 })
 
+
+
 require("nvim-treesitter").setup()
-
-local treesitter_files_types = { 'http', 'nix', 'lua', 'go', 'html', 'python', 'elixir', 'javascript', 'zig', 'bash',
-	'racket', 'cpp' }
-
-require 'nvim-treesitter'.install(treesitter_files_types)
-
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = (treesitter_files_types),
-	callback = function() vim.treesitter.start() end,
+	callback = function() pcall(vim.treesitter.start) end,
 })
 
 vim.keymap.set('n', '<leader>p', function()

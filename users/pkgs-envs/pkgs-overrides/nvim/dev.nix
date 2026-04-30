@@ -11,7 +11,20 @@ pkgs.neovim.override {
       nvim-dap-go
 
       nvim-surround
-      nvim-treesitter
+      (nvim-treesitter.withPlugins (p: [
+        p.go
+        p.nix
+        p.lua
+        p.bash
+        p.python
+        p.html
+        p.javascript
+        p.elixir
+        p.zig
+        p.cpp
+        p.http
+        p.racket
+      ]))
     ];
 
     customRC = ''
