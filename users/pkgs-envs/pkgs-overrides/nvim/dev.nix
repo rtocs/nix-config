@@ -20,6 +20,7 @@ pkgs.neovim.override {
         p.html
         p.javascript
         p.elixir
+        p.json
         p.zig
         p.cpp
         p.http
