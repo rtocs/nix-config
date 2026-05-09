@@ -9,6 +9,7 @@ pkgs.neovim.override {
       nvim-dap
       nvim-dap-ui
       nvim-dap-go
+      gitsigns-nvim
 
       nvim-surround
       (nvim-treesitter.withPlugins (p: [
