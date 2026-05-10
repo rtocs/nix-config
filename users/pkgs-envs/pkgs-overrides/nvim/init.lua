@@ -125,16 +125,6 @@ vim.keymap.set('n', '<leader>ad', function()
 	vim.bo.filetype = 'diff'
 end, { desc = 'git diff all files' })
 
-vim.keymap.set('n', '<leader>nd', function()
-	vim.cmd('diffthis')
-	vim.cmd('vnew')
-	vim.cmd('r !git show HEAD:' .. vim.fn.expand('#:'))
-	vim.cmd('1delete')
-	vim.bo.buftype = 'nofile'
-	vim.bo.modifiable = false
-	vim.cmd('diffthis')
-end, { desc = 'diff current file against HEAD using nvim diff' })
-
 vim.keymap.set('n', '<leader>d', function()
 	local file = vim.fn.expand('%')
 	vim.cmd('tabnew')
@@ -350,7 +340,7 @@ require('gitsigns').setup {
 		end
 
 		-- Navigation
-		map('n', ']c', function()
+		map('n', '<leader>gn', function()
 			if vim.wo.diff then
 				vim.cmd.normal({ ']c', bang = true })
 			else
@@ -358,7 +348,7 @@ require('gitsigns').setup {
 			end
 		end)
 
-		map('n', '[c', function()
+		map('n', '<leader>gp', function()
 			if vim.wo.diff then
 				vim.cmd.normal({ '[c', bang = true })
 			else
@@ -386,6 +376,7 @@ require('gitsigns').setup {
 		map('n', '<leader>hb', function()
 			gitsigns.blame_line({ full = true })
 		end)
+
 
 		map('n', '<leader>hd', gitsigns.diffthis)
 
