@@ -330,6 +330,7 @@ require("nvim-surround").setup()
 
 -- TODO we do not need all of these 
 require('gitsigns').setup {
+	-- todo hard to use better maps
 	on_attach = function(bufnr)
 		local gitsigns = require('gitsigns')
 
@@ -386,17 +387,12 @@ require('gitsigns').setup {
 
 		map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
 		map('n', '<leader>hq', gitsigns.setqflist)
-
-		-- Toggles
-		map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-		map('n', '<leader>tw', gitsigns.toggle_word_diff)
-
-		-- Text object
-		map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
 	end
 }
 
 vim.cmd("packadd nvim.undotree")
+vim.keymap.set("n", "<leader>u", '<cmd>Undotree<CR>', { desc = "open undotree" })
+
 vim.cmd("packadd nvim.difftool")
 
 require("vim._core.ui2").enable {
