@@ -126,15 +126,6 @@ vim.keymap.set('n', git_leader .. 'ad', function()
 	vim.bo.filetype = 'diff'
 end, { desc = 'git diff all files' })
 
-vim.keymap.set('n', git_leader .. 'd', function()
-	local file = vim.fn.expand('%')
-	vim.cmd('tabnew')
-	vim.cmd('r !git diff ' .. file)
-	vim.bo.buftype = 'nofile'
-	vim.bo.modifiable = false
-	vim.bo.filetype = 'diff'
-end, { desc = 'git diff current file' })
-
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
@@ -350,7 +341,7 @@ require('gitsigns').setup {
 			end
 		end)
 
-		map('n', git_leader .. 'd', function()
+		map('n', git_leader .. 'F', function()
 			if vim.wo.diff then
 				vim.cmd.normal({ '[c', bang = true })
 			else
@@ -358,36 +349,23 @@ require('gitsigns').setup {
 			end
 		end)
 
-		-- Actions
-		map('n', git_leader .. 'hs', gitsigns.stage_hunk)
-		map('n', git_leader .. 'hr', gitsigns.reset_hunk)
+		map('n', git_leader .. 'S', gitsigns.stage_buffer)
+		map('n', git_leader .. 'R', gitsigns.reset_buffer)
+		map('n', git_leader .. 'i', gitsigns.preview_hunk_inline)
 
-		map('v', git_leader .. 'hs', function()
-			gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-		end)
-
-		map('v', git_leader .. 'hr', function()
-			gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-		end)
-
-		map('n', git_leader .. 'hS', gitsigns.stage_buffer)
-		map('n', git_leader .. 'hR', gitsigns.reset_buffer)
-		map('n', git_leader .. 'hp', gitsigns.preview_hunk)
-		map('n', git_leader .. 'hi', gitsigns.preview_hunk_inline)
-
-		map('n', git_leader .. 'hb', function()
+		map('n', git_leader .. 'b', function()
 			gitsigns.blame_line({ full = true })
 		end)
 
 
-		map('n', git_leader .. 'hd', gitsigns.diffthis)
+		map('n', git_leader .. 'd', gitsigns.diffthis)
 
-		map('n', git_leader .. 'hD', function()
+		map('n', git_leader .. 'D', function()
 			gitsigns.diffthis('~')
 		end)
 
-		map('n', git_leader .. 'hQ', function() gitsigns.setqflist('all') end)
-		map('n', git_leader .. 'hq', gitsigns.setqflist)
+		map('n', git_leader .. 'Q', function() gitsigns.setqflist('all') end)
+		map('n', git_leader .. 'q', gitsigns.setqflist)
 	end
 }
 
