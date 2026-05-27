@@ -17,6 +17,8 @@ with pkgs;
 
   zig
   go
+  dotnet-sdk_10
+  csharp-ls
   rustc
   elixir
   elixir-ls

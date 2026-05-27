@@ -270,6 +270,7 @@ vim.lsp.enable('pyright')
 vim.lsp.enable('gopls')
 vim.lsp.enable('elixirls')
 vim.lsp.enable('clangd')
+vim.lsp.enable('csharp_ls')
 
 require("oil").setup()
 vim.keymap.set('n', '<leader>o', '<cmd>Oil<CR>', { desc = 'oil' })

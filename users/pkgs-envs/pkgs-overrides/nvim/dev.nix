@@ -26,6 +26,7 @@ pkgs.neovim.override {
         p.cpp
         p.http
         p.racket
+        p.c_sharp
       ]))
     ];
 
