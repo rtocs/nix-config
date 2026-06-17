@@ -397,3 +397,16 @@ require("vim._core.ui2").enable {
 		},
 	},
 }
+
+vim.filetype.add({
+  extension = {
+    fbs = "fbs",
+  },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "fbs",
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end,
+})
