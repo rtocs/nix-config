@@ -10,10 +10,12 @@ pkgs.neovim.override {
       nvim-dap-ui
       nvim-dap-go
       gitsigns-nvim
+      render-markdown-nvim
 
       nvim-surround
       (nvim-treesitter.withPlugins (p: [
         p.go
+        p.markdown_inline
         p.nix
         p.lua
         p.bash

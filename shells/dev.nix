@@ -20,7 +20,7 @@ pkgs.mkShell {
     go
     dotnet-sdk_10
     rustc
-    elixir
+    beamPackages.elixir
     elixir-ls
     git
     cargo

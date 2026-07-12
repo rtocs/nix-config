@@ -229,6 +229,8 @@ vim.diagnostic.config {
 	},
 }
 
+require('render-markdown').setup({})
+
 vim.lsp.config('lua_ls', {
 	on_init = function(client)
 		if client.workspace_folders then
@@ -399,14 +401,14 @@ require("vim._core.ui2").enable {
 }
 
 vim.filetype.add({
-  extension = {
-    fbs = "fbs",
-  },
+	extension = {
+		fbs = "fbs",
+	},
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "fbs",
-  callback = function()
-    vim.bo.commentstring = "// %s"
-  end,
+	pattern = "fbs",
+	callback = function()
+		vim.bo.commentstring = "// %s"
+	end,
 })
