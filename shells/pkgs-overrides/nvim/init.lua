@@ -403,8 +403,11 @@ require("vim._core.ui2").enable {
 vim.filetype.add({
 	extension = {
 		fbs = "fbs",
+		kage = "kage",
 	},
 })
+
+vim.treesitter.language.register("go", "kage")
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "fbs",
